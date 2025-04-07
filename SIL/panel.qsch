@@ -1,0 +1,55 @@
+ÿØÿÛ«schematic
+  «component (-600,400) 0 0
+    «symbol g_solar_panel
+      «type: X»
+      «description: GENERIC_SOLAR_PANEL»
+      «library file: |.subckt Generic_solar_panel P N\nD1 A N Si_Cell m={isc}\nB1 N01 A V=(voc/791.2m-1)*v(a,n)\nR1 N01 P {IR_drop/ISC}\nB2 N N01 I=ISC*SUN\n.param sun 1\n.param isc=14.86m\n.param VOC 610m\n.param IR_drop 30m\n.model si_cell d is=5e-14\n.ends Generic_solar_panel»
+      «shorted pins: false»
+      «rect (-800,0) (500,400) 0 0 0 0xff0000 0x4000000 -1 0 -1»
+      «text (-50,50) 0.5 6 0 0x1000000 -1 -1 "X1"»
+      «text (-50,200) 0.5 0 0 0x1000000 -1 -1 "GENERIC_SOLAR_PANEL"»
+      «text (-600,350) 0.5 0 0 0x1000000 -1 -1 "sun=1"»
+      «text (-200,350) 0.5 0 0 0x1000000 -1 -1 "isc=1"»
+      «text (200,350) 0.5 0 0 0x1000000 -1 -1 "voc=12"»
+      «pin (500,300) (0,0) 0.5 11 0 0x0 -1 "P"»
+      «pin (500,100) (0,0) 0.5 11 0 0x0 -1 "N"»
+    »
+  »
+  «component (700,700) 0 0
+    «symbol
+      «type: Ø(.DLL)»
+      «shorted pins: false»
+      «rect (-600,300) (500,-400) 0 0 0 0x4000000 0x4000000 -1 1 -1»
+      «text (0,0) 1 12 0 0x1000000 -1 -1 "X3"»
+      «text (0,-100) 0.681 13 0 0x1000000 -1 -1 "test_X1"»
+      «pin (-600,0) (100,-50) 1 14 145 0x0 -1 "IN"»
+      «pin (500,100) (-150,-100) 1 14 145 0x0 -1 "OUT"»
+    »
+  »
+  «component (1500,600) 0 0
+    «symbol Vsin
+      «type: V»
+      «description: Independent Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «arc3p (0,0) (60,0) (30,0) 0 0 0x1000000 -1 -1»
+      «arc3p (0,0) (-60,0) (-30,0) 0 0 0x1000000 -1 -1»
+      «text (100,150) 1 7 0 0x1000000 -1 -1 "V1"»
+      «text (100,-150) 1 7 0 0x1000000 -1 -1 "SIN 40 6 60"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «net (0,300) 1 13 0 "GND"»
+  «net (1500,400) 1 13 0 "GND"»
+  «wire (-100,500) (0,500) "GND"»
+  «wire (0,500) (0,300) "GND"»
+  «wire (1200,800) (1500,800) "N01"»
+  «wire (-100,700) (100,700) "N02"»
+»
+
