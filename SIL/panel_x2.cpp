@@ -4,6 +4,7 @@
 //
 //    dmc -mn -WD panel_x2.cpp kernel32.lib
 
+#include "library.h"
 union uData
 {
    bool b;
@@ -35,7 +36,9 @@ void mppt_controller(double vin,double in,double *vout,double *iout) {
    // observe delta Pout and perturb with vin_targ step
    // runs every 100 ms
    //*vout = vin*10;
+   return_squared(vin, *vout);
 
+   /*
    int32_t mppt_pout = pout_tot;
 
    if (OutState != (OUTRAMP60 || OUTOFF) && BalState == BALDIS) { // turn on balancing if not actively ramping, auto checks if all pins are connected
@@ -107,6 +110,7 @@ void mppt_controller(double vin,double in,double *vout,double *iout) {
    mppt_cnt++;
    mppt_10s_cnt++;
    mppt_pulseoff_cnt++;
+   */
 }
 
 extern "C" __declspec(dllexport) void panel_x2(void **opaque, double t, union uData *data)
