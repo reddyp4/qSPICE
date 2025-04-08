@@ -1,8 +1,8 @@
-// Automatically generated C++ file on Mon Apr  7 13:22:36 2025
+// Automatically generated C++ file on Tue Apr  8 09:41:59 2025
 //
 // To build with Digital Mars C++ Compiler:
 //
-//    dmc -mn -WD test_x1.cpp kernel32.lib
+//    dmc -mn -WD panel_x2.cpp kernel32.lib
 
 union uData
 {
@@ -21,12 +21,21 @@ union uData
    unsigned char *bytes;
 };
 
-void mppt_controller(float vin,float vout) {
+// int DllMain() must exist and return 1 for a process to load the .DLL
+// See https://docs.microsoft.com/en-us/windows/win32/dlls/dllmain for more information.
+int __stdcall DllMain(void *module, unsigned int reason, void *reserved) { return 1; }
+
+// #undef pin names lest they collide with names in any header file(s) you might include.
+#undef vin
+#undef vout
+#undef iout
+#undef iin
+
+void mppt_controller(double vin,double in,double *vout,double *iout) {
    // observe delta Pout and perturb with vin_targ step
    // runs every 100 ms
-   return vin*10;
+   //*vout = vin*10;
 
-   /*
    int32_t mppt_pout = pout_tot;
 
    if (OutState != (OUTRAMP60 || OUTOFF) && BalState == BALDIS) { // turn on balancing if not actively ramping, auto checks if all pins are connected
@@ -98,23 +107,15 @@ void mppt_controller(float vin,float vout) {
    mppt_cnt++;
    mppt_10s_cnt++;
    mppt_pulseoff_cnt++;
-   */
 }
 
-// int DllMain() must exist and return 1 for a process to load the .DLL
-// See https://docs.microsoft.com/en-us/windows/win32/dlls/dllmain for more information.
-int __stdcall DllMain(void *module, unsigned int reason, void *reserved) { return 1; }
-
-// #undef pin names lest they collide with names in any header file(s) you might include.
-#undef IN
-#undef OUT
-
-extern "C" __declspec(dllexport) void test_x1(void **opaque, double t, union uData *data)
+extern "C" __declspec(dllexport) void panel_x2(void **opaque, double t, union uData *data)
 {
-   double  VIN  = data[0].d; // input
-   double &VOUT = data[1].d; // output
+   double  vin  = data[0].d; // input
+   double  iin  = data[1].d; // input
+   double &vout = data[2].d; // output
+   double &iout = data[3].d; // output
 
 // Implement module evaluation code here:
-   OUT = mppt_controller(VIN,VOUT);
-
+   mppt_controller(vin,iin,&vout,&iout);
 }
