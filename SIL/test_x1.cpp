@@ -21,7 +21,7 @@ union uData
    unsigned char *bytes;
 };
 
-void mppt_controller(float in) {
+void mppt_controller(float vin) {
    // observe delta Pout and perturb with vin_targ step
    // runs every 100 ms
    int32_t mppt_pout = pout_tot;
@@ -107,10 +107,10 @@ int __stdcall DllMain(void *module, unsigned int reason, void *reserved) { retur
 
 extern "C" __declspec(dllexport) void test_x1(void **opaque, double t, union uData *data)
 {
-   double  IN  = data[0].d; // input
-   double &OUT = data[1].d; // output
+   double  VIN  = data[0].d; // input
+   double &VOUT = data[1].d; // output
 
 // Implement module evaluation code here:
-   OUT = mppt_controller(IN);
+   OUT = mppt_controller(VIN,IIN,VOUT,IOUT);
 
 }
